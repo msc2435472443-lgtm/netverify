@@ -1,0 +1,15 @@
+{
+  "id": "icmp-001",
+  "title": "ICMP Echo 一问一答",
+  "intent": "客户端 ping 网关时，每个 Echo Request 都应收到对应的 Echo Reply，且序号连续无丢失",
+  "tags": ["icmp", "smoke"],
+  "steps": [
+    {"action": "send", "proto": "icmp", "type": "echo-request"},
+    {"action": "expect", "proto": "icmp", "type": "echo-reply", "timeout_s": 2}
+  ],
+  "assertions": [
+    {"field": "icmp.type", "equals": 0},
+    {"field": "icmp.seq", "in_range": [1, 65535]},
+    {"field": "frame.len", "in_range": [64, 1514]}
+  ]
+}
