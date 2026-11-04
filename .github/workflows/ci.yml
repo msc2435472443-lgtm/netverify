@@ -13,7 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.11", "3.13"]
+        # 3.9 不在列表里：ubuntu-latest（现在已经是 26.04）的镜像里没有 3.9，
+        # setup-python 会直接报 "The version '3.9' ... was not found for Ubuntu 26.04"。
+        # 这是托管 runner 的镜像漂移，不是我们的代码问题，所以把矩阵挪到还有的版本上。
+        # 最低支持的 Python 版本仍以 pyproject.toml 的 requires-python 为准。
+        python-version: ["3.10", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v4
