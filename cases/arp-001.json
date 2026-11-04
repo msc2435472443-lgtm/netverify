@@ -1,0 +1,15 @@
+{
+  "id": "arp-001",
+  "title": "ARP 请求与应答配对完整",
+  "intent": "同网段主机询问网关 MAC 时，应收到来自该网关的 ARP 应答，且应答中的 MAC 与请求方期待的一致",
+  "tags": ["arp", "smoke"],
+  "steps": [
+    {"action": "send", "proto": "arp", "type": "request"},
+    {"action": "expect", "proto": "arp", "type": "reply", "timeout_s": 3}
+  ],
+  "assertions": [
+    {"field": "arp.opcode", "equals": 2},
+    {"field": "arp.src.proto_ipv4", "matches": "^192\\.168\\.109\\."},
+    {"field": "arp.dst.hw_mac", "matches": "^([0-9a-f]{2}:){5}[0-9a-f]{2}$"}
+  ]
+}

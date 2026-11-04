@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 抓包与运行产物：原始 pcap 体积大且可能含隐私，不入库
+*.pcap
+*.pcapng
+captures/
+artifacts/
+reports/
+
+# 凭据
+.env
+*.key
+*.pem
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store

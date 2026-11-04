@@ -1,0 +1,17 @@
+{
+  "id": "dhcp-001",
+  "title": "DHCP 四步握手完整性",
+  "intent": "客户端应能在 30 秒内通过 DHCP 完整走完 DISCOVER / OFFER / REQUEST / ACK，并拿到 192.168 网段地址",
+  "tags": ["dhcp", "smoke"],
+  "steps": [
+    {"action": "send", "proto": "dhcp", "type": "DISCOVER"},
+    {"action": "expect", "proto": "dhcp", "type": "OFFER", "timeout_s": 5},
+    {"action": "send", "proto": "dhcp", "type": "REQUEST"},
+    {"action": "expect", "proto": "dhcp", "type": "ACK", "timeout_s": 5}
+  ],
+  "assertions": [
+    {"field": "bootp.option.dhcp", "equals": 2},
+    {"field": "bootp.yiaddr", "matches": "^192\\.168\\."},
+    {"field": "bootp.option.subnet_mask", "contains": "255.255.255.0"}
+  ]
+}
